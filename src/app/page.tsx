@@ -332,9 +332,6 @@ function Composer({
           </button>
         )}
       </div>
-      <p className="mt-2 text-center text-[0.7rem] text-muted/60">
-        Powered by Google Gemini via the Vercel AI SDK · Demo by Ramit
-      </p>
     </div>
   );
 }
