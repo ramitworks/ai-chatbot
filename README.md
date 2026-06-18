@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sage — AI Chatbot
 
-## Getting Started
+A polished, production-style **streaming AI chatbot** with switchable personas. Built as a portfolio demo to showcase real-world AI app development.
 
-First, run the development server:
+🔗 **Live demo:** _(add Vercel URL after deploy)_
+
+![Next.js](https://img.shields.io/badge/Next.js-16-black) ![AI SDK](https://img.shields.io/badge/Vercel_AI_SDK-6-7c6cff) ![Gemini](https://img.shields.io/badge/Google_Gemini-free_tier-c084fc)
+
+## Features
+
+- 🌊 **Token-by-token streaming** responses via the Vercel AI SDK
+- 🎭 **Switchable personas** — friendly assistant, senior engineer, copywriter, tutor (each with its own system prompt & starter prompts)
+- 📝 **Markdown rendering** — code blocks, lists, tables, links
+- ⏹️ **Stop generation** mid-stream, **new chat** reset, auto-growing composer
+- 📱 Fully **responsive**, dark "Aurora" design system shared across the portfolio
+- 💸 **$0 to run** — powered by Google Gemini's free tier
+
+## Tech stack
+
+| Layer | Choice |
+|-------|--------|
+| Framework | Next.js 16 (App Router, Turbopack) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 |
+| AI | Vercel AI SDK v6 + `@ai-sdk/google` (Gemini) |
+| Hosting | Vercel |
+
+## Run locally
 
 ```bash
+npm install
+cp .env.example .env.local   # then paste your free Gemini key
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Get a free Gemini key (no card) at <https://aistudio.google.com/apikey>.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deploy
 
-## Learn More
+Push to GitHub, import the repo on [Vercel](https://vercel.com/new), and add the
+`GOOGLE_GENERATIVE_AI_API_KEY` environment variable. That's it.
 
-To learn more about Next.js, take a look at the following resources:
+## How it works
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The browser uses the AI SDK's `useChat` hook, which streams `UIMessage`s from the
+`/api/chat` route handler. The route picks the selected persona's system prompt,
+converts the UI messages with `convertToModelMessages`, and pipes Gemini's output
+back with `streamText(...).toUIMessageStreamResponse()`. Swapping Gemini for Groq
+or OpenRouter is a one-line provider change.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Part of [Ramit's freelance portfolio](https://github.com/ramitworks) — building AI apps, chatbots, agents, and modern web experiences.
